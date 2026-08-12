@@ -798,13 +798,13 @@ export const { use: useServerSync, provider: ServerSyncProvider } = createSimple
   name: "ServerSync",
   // Returns an accessor so the resolved server can change reactively without
   // re-instantiating the subtree (mirrors useServerSDK).
-  init: (props: { server?: Accessor<ServerConnection.Any | undefined> }) => {
+  init: (props: { server?: ServerConnection.Any }) => {
     const global = useGlobal()
     const language = useLanguage()
     const server = useServer()
 
     return createMemo<ServerSync>(() => {
-      const conn = props.server?.() ?? server.current
+      const conn = props.server ?? server.current
       if (!conn) throw new Error(language.t("error.serverSDK.noServerAvailable"))
       return global.ensureServerCtx(conn).sync
     })

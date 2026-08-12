@@ -19,7 +19,7 @@ export function SettingsServerDataScope(props: ParentProps<{ server: ServerConne
   const global = useGlobal()
   const serverCtx = () => global.ensureServerCtx(props.server)
   return (
-    <QueryClientProvider client={serverCtx().queryClient}>
+    <QueryClientProvider client={serverCtx().sync.queryClient}>
       <ServerSDKProvider server={() => props.server}>
         <ServerSyncProvider server={() => props.server}>
           <ModelsProvider>{props.children}</ModelsProvider>
